@@ -2,10 +2,19 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type ListItem {
+  id: ID!
+  quantity: Float!
+  completed: Boolean!
+  list: List!
+  item: Item!
+}
+
 type List {
   id: ID!
   name: String!
   user: User!
+  listItem: [ListItem!]!
 }
 
 type User {
@@ -26,17 +35,12 @@ type Item {
   name: String!
   quantityUnits: String
   user: User!
+  listItem: [ListItem!]!
 }
 
 type AuthResponse {
   token: String!
   user: User!
-}
-
-type ListItem {
-  id: ID!
-  quantity: Float!
-  completed: Boolean!
 }
 
 type Query {
@@ -47,7 +51,7 @@ type Query {
   item(id: ID!): Item!
   lists(offset: Int = 0, limit: Int = 10, search: String): [List!]!
   list(id: ID!): List!
-  listItem(id: Int!): ListItem!
+  listItem: [ListItem!]!
 }
 
 """Roles permitidos."""
@@ -72,8 +76,6 @@ type Mutation {
   """Ejecuta la construcción de la base de datos."""
   executeSeed: Boolean!
   createListItem(createListItemInput: CreateListItemInput!): ListItem!
-  updateListItem(updateListItemInput: UpdateListItemInput!): ListItem!
-  removeListItem(id: Int!): ListItem!
 }
 
 input SingUpInput {
@@ -117,12 +119,8 @@ input UpdateListInput {
 }
 
 input CreateListItemInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
-}
-
-input UpdateListItemInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
+  quantity: Float = 0
+  completed: Boolean = false
+  listId: ID!
+  itemId: ID!
 }
