@@ -6,7 +6,6 @@ import { ListItem } from './entities/list-item.entity';
 import { List } from '../lists/entities/list.entity';
 import { PaginationArgs } from '../common/dto/args/pagination.args';
 import { SearchArgs } from '../common/dto/args/search.args';
-import { User } from '../users/entities/user.entity';
 
 @Injectable()
 export class ListItemService {
@@ -15,7 +14,7 @@ export class ListItemService {
     private readonly listItemsRepository: Repository<ListItem>
   ) {}
 
-  create( createListItemInput: CreateListItemInput ): Promise<ListItem> {
+  async create( createListItemInput: CreateListItemInput ): Promise<ListItem> {
     const { itemId, listId, ...rest } = createListItemInput;
 
     const newListItem = this.listItemsRepository.create({
@@ -24,7 +23,9 @@ export class ListItemService {
       list: { id: listId }
     });
 
-    return this.listItemsRepository.save( newListItem )
+    await this.listItemsRepository.save( newListItem )
+
+    return this.findOne( newListItem.id )
   }
 
   async findAll( list: List, paginationArgs: PaginationArgs, searchArgs: SearchArgs ): Promise<ListItem[]> {

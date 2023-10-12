@@ -15,8 +15,8 @@ import { ListItemModule } from '../list-item/list-item.module';
     TypeOrmModule.forFeature([ List ])
   ], 
   exports: [
-    TypeOrmModule,
-    ListsService
+    ListsService,
+    TypeOrmModule
   ]
 })
 export class ListsModule {}

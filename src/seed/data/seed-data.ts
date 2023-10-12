@@ -22,6 +22,18 @@ export const SEED_USERS = [
     },
 ]
 
+export const SEED_LISTS = [
+    { name: 'Supermercado' },
+    { name: 'Diario' },
+    { name: 'Semanal' },
+    { name: 'Mensual' },
+    { name: 'Semestral' }
+]
+
+export const SEED_LIST_ITEMS = [
+
+]
+
 export const SEED_ITEMS = [
     {
         name: "Chicken breast (skinless,boneless)",
